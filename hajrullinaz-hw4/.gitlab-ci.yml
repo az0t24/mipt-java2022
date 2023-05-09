@@ -1,0 +1,25 @@
+image: ubuntu
+
+before_script:
+  - apt update
+  - apt install maven -y
+  - cd hw4
+
+cache:
+  paths:
+    - .m2/repository/
+
+build:
+  stage: build
+  script:
+    - mvn clean compile
+
+test:
+  stage: test
+  script:
+    - mvn test
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 hour
+
